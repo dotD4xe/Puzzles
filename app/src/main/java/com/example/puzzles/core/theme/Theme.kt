@@ -1,4 +1,4 @@
-package com.example.puzzles.ui.theme
+package com.example.puzzles.core.theme
 
 import android.app.Activity
 import android.os.Build
