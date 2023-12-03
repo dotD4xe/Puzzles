@@ -17,9 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.puzzles.R
+import com.example.puzzles.core.theme.Green
+import com.example.puzzles.core.theme.Orange
+import com.example.puzzles.core.theme.Red
 import com.example.puzzles.core.theme.Typography
+import com.example.puzzles.core.theme.darkColors
 import com.example.puzzles.featureHome.domain.model.Complexity
 import com.example.puzzles.featureHome.domain.model.InformationItem
 
@@ -31,7 +36,7 @@ fun ItemComplexityOfPuzzles(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = Color(37, 40, 51),
+                color = darkColors.backSecondary,
                 shape = RoundedCornerShape(10.dp)
             )
             .padding(16.dp)
@@ -42,7 +47,7 @@ fun ItemComplexityOfPuzzles(
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Puzzles",
+                text = stringResource(id = R.string.app_name),
                 color = Color.White,
                 style = Typography.bodyMedium,
                 modifier = Modifier
@@ -59,7 +64,7 @@ fun ItemComplexityOfPuzzles(
         ) {
             Column {
                 Text(
-                    text = "complexity",
+                    text = stringResource(id = R.string.complexity),
                     color = Color.White,
                     style = Typography.bodySmall,
                     modifier = Modifier
@@ -68,14 +73,14 @@ fun ItemComplexityOfPuzzles(
                 )
                 Text(
                     text = when(info.complexity) {
-                        Complexity.EASY -> "Easy"
-                        Complexity.MEDIUM -> "Medium"
-                        else -> "Hard"
+                        Complexity.EASY -> stringResource(id = R.string.difficulty_level_easy)
+                        Complexity.MEDIUM -> stringResource(id = R.string.difficulty_level_medium)
+                        else -> stringResource(id = R.string.difficulty_level_hard)
                     },
                     color = when(info.complexity) {
-                        Complexity.EASY -> Color(102, 204, 153)
-                        Complexity.MEDIUM -> Color(255, 153, 0)
-                        else -> Color(255, 102, 102)
+                        Complexity.EASY -> Green
+                        Complexity.MEDIUM -> Orange
+                        else -> Red
                     },
                     style = Typography.labelLarge,
                 )
@@ -83,7 +88,7 @@ fun ItemComplexityOfPuzzles(
 
             Column {
                 Text(
-                    text = "Quantity",
+                    text = stringResource(id = R.string.quantity),
                     color = Color.White,
                     style = Typography.bodySmall,
                     modifier = Modifier
@@ -98,7 +103,7 @@ fun ItemComplexityOfPuzzles(
             }
             Column {
                 Text(
-                    text = "Done",
+                    text = stringResource(id = R.string.done),
                     color = Color.White,
                     style = Typography.bodySmall,
                     modifier = Modifier
@@ -122,10 +127,10 @@ fun GreenCircle(complexity: Complexity){
             .size(10.dp)
             .clip(shape = CircleShape)
             .background(
-                when(complexity) {
-                    Complexity.EASY -> Color(102, 204, 153)
-                    Complexity.MEDIUM -> Color(255, 153, 0)
-                    else -> Color(255, 102, 102)
+                when (complexity) {
+                    Complexity.EASY -> Green
+                    Complexity.MEDIUM -> Orange
+                    else -> Red
                 }
             )
     )

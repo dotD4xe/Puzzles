@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Загадки</string>
+    <string name="home_description">Давай, заверши свою миссию</string>
+    <string name="complexity">Сложность</string>
+    <string name="difficulty_level_easy">Легкий</string>
+    <string name="difficulty_level_medium">Средний</string>
+    <string name="difficulty_level_hard">Тяжелый</string>
+    <string name="quantity">Количество</string>
+    <string name="done">Выполнено</string>
+</resources>

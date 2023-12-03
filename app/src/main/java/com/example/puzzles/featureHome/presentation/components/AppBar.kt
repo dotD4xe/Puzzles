@@ -1,8 +1,8 @@
 package com.example.puzzles.featureHome.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -22,19 +22,21 @@ import com.example.puzzles.R
 import com.example.puzzles.core.theme.Typography
 
 @Composable
-fun AppBar() {
-    Row(
-        horizontalArrangement = Arrangement.End,
-        modifier = Modifier.padding(16.dp)
+fun AppBar(
+    nickname: String
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
         Text(
             modifier = Modifier
-                .weight(1f)
-                .align(Alignment.CenterVertically),
+                .align(Alignment.Center),
             textAlign = TextAlign.Center,
             color = Color.White,
             style = Typography.titleLarge,
-            text = "Name"
+            text = nickname
         )
         Image(
             painter = painterResource(id = R.drawable.settings),
@@ -42,8 +44,8 @@ fun AppBar() {
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(27.dp)
-                .clip(CircleShape),
-            alignment = Alignment.CenterEnd,
+                .clip(CircleShape)
+                .align(Alignment.CenterEnd),
             colorFilter = ColorFilter.tint(Color.White)
         )
     }
