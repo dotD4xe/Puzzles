@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.featureHome.domain.model.Complexity
 import com.example.puzzles.featureHome.domain.model.InformationItem
 
@@ -43,6 +44,7 @@ fun ItemComplexityOfPuzzles(
             Text(
                 text = "Puzzles",
                 color = Color.White,
+                style = Typography.bodyMedium,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .align(Alignment.CenterVertically)
@@ -59,6 +61,7 @@ fun ItemComplexityOfPuzzles(
                 Text(
                     text = "complexity",
                     color = Color.White,
+                    style = Typography.bodySmall,
                     modifier = Modifier
                         .alpha(0.5f)
                         .padding(bottom = 7.dp)
@@ -74,6 +77,7 @@ fun ItemComplexityOfPuzzles(
                         Complexity.MEDIUM -> Color(255, 153, 0)
                         else -> Color(255, 102, 102)
                     },
+                    style = Typography.labelLarge,
                 )
             }
 
@@ -81,6 +85,7 @@ fun ItemComplexityOfPuzzles(
                 Text(
                     text = "Quantity",
                     color = Color.White,
+                    style = Typography.bodySmall,
                     modifier = Modifier
                         .alpha(0.5f)
                         .padding(bottom = 7.dp)
@@ -88,12 +93,14 @@ fun ItemComplexityOfPuzzles(
                 Text(
                     text = info.quantity.toString(),
                     color = Color.White,
+                    style = Typography.labelLarge,
                 )
             }
             Column {
                 Text(
                     text = "Done",
                     color = Color.White,
+                    style = Typography.bodySmall,
                     modifier = Modifier
                         .alpha(0.5f)
                         .padding(bottom = 7.dp)
@@ -101,6 +108,7 @@ fun ItemComplexityOfPuzzles(
                 Text(
                     text = info.done.toString(),
                     color = Color.White,
+                    style = Typography.labelLarge,
                 )
             }
         }

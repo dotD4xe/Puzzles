@@ -1,7 +1,6 @@
 package com.example.puzzles.featureHome.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -20,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.puzzles.R
+import com.example.puzzles.core.theme.Typography
 
 @Composable
 fun AppBar() {
@@ -33,6 +33,7 @@ fun AppBar() {
                 .align(Alignment.CenterVertically),
             textAlign = TextAlign.Center,
             color = Color.White,
+            style = Typography.titleLarge,
             text = "Name"
         )
         Image(
