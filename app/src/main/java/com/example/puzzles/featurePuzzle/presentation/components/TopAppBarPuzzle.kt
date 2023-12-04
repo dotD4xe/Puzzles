@@ -37,7 +37,7 @@ fun TopAppBarPuzzle() {
 
         Box(
             modifier = Modifier
-                .background(Color(49, 194, 182), RoundedCornerShape(10.dp))
+                .background(Color(49, 194, 182), RoundedCornerShape(7.dp))
                 .align(Alignment.Center)
         ) {
             Text(
@@ -45,8 +45,8 @@ fun TopAppBarPuzzle() {
                 color = Color.White,
                 style = Typography.bodyMedium,
                 modifier = Modifier
-                    .padding(12.dp)
-                    .padding(start = 7.dp, end = 7.dp)
+                    .padding(8.dp)
+                    .padding(start = 12.dp, end = 12.dp)
             )
         }
 
