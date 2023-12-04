@@ -1,6 +1,8 @@
 package com.example.puzzles.featureHome.presentation.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +30,7 @@ import com.example.puzzles.core.theme.darkColors
 import com.example.puzzles.featureHome.domain.model.Complexity
 import com.example.puzzles.featureHome.domain.model.InformationItem
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemComplexityOfPuzzles(
     info: InformationItem
@@ -35,11 +38,16 @@ fun ItemComplexityOfPuzzles(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .combinedClickable(
+                onClick = {  },
+                onLongClick = { }
+            )
             .background(
                 color = darkColors.backSecondary,
                 shape = RoundedCornerShape(10.dp)
             )
             .padding(16.dp)
+
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

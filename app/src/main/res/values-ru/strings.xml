@@ -7,4 +7,6 @@
     <string name="difficulty_level_hard">Тяжелый</string>
     <string name="quantity">Количество</string>
     <string name="done">Выполнено</string>
+    <string name="completed_percent">%d%% Выполнено</string>
+    <string name="puzzle">Загадка</string>
 </resources>

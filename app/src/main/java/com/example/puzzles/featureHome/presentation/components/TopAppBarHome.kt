@@ -22,7 +22,7 @@ import com.example.puzzles.R
 import com.example.puzzles.core.theme.Typography
 
 @Composable
-fun AppBar(
+fun TopAppBarHome(
     nickname: String
 ) {
     Box(
