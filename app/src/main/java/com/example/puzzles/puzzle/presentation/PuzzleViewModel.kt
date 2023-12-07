@@ -49,26 +49,39 @@ class PuzzleViewModel: ViewModel() {
                 viewState.value.copy(
                     word = secretLetters,
                     letters = keywordLetters,
+                    wordNotCorrect = false
                 )
             }
         }
     }
 
     private fun addLetter(index: Int) {
-        val secretLetters = viewState.value.word.toMutableList()
-        val keywordLetters = viewState.value.letters.toMutableList()
-
+        val currentViewState = viewState.value
+        val secretLetters = currentViewState.word.toMutableList()
+        val keywordLetters = currentViewState.letters.toMutableList()
         val indexOfEmptyPlace = secretLetters.indexOf("")
 
         if (indexOfEmptyPlace != -1) {
             secretLetters[indexOfEmptyPlace] = keywordLetters[index]
             keywordLetters[index] = ""
             _viewState.update {
-                viewState.value.copy(
+                currentViewState.copy(
                     word = secretLetters,
-                    letters = keywordLetters,
+                    letters = keywordLetters
                 )
             }
+        }
+        if (secretLetters.indexOf("") == -1) checkWord(secretLetters)
+    }
+
+    private fun checkWord(secretLetters: MutableList<String>) {
+        val isWordCorrect = secretLetters.joinToString("") == viewState.value.secretWord
+
+        _viewState.update {
+            viewState.value.copy(
+                wordCorrect = isWordCorrect,
+                wordNotCorrect = !isWordCorrect
+            )
         }
     }
 }

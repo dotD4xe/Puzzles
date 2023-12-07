@@ -5,6 +5,8 @@ data class PuzzleViewState(
     val letters: List<String> = emptyList(),
     val done: Boolean = false,
     val puzzle: String = "",
-    val secretWord: String = ""
+    val secretWord: String = "",
+    val wordNotCorrect: Boolean = false,
+    val wordCorrect: Boolean = false
 )
 

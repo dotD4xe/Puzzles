@@ -1,6 +1,7 @@
 package com.example.puzzles.puzzle.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +25,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.puzzles.core.theme.Red
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
 import com.example.puzzles.puzzle.presentation.components.LetterButton
@@ -95,7 +96,6 @@ fun PuzzleScreen(
                         ),
                     modifier = Modifier
                         .fillMaxWidth()
-
                 ) {
                     val commonModifier = Modifier.background(darkColors.backSecondary, RoundedCornerShape(7.dp))
                     val modifier = if (viewState.secretWord.length > 6) commonModifier.weight(1f).aspectRatio(1.0f)
@@ -104,7 +104,12 @@ fun PuzzleScreen(
                     repeat(viewState.secretWord.length ) { index ->
                         Box(
                             modifier = modifier
-                                .clickable { viewModel.onAction(PuzzleViewAction.DeleteLetter(index)) },
+                                .clickable { viewModel.onAction(PuzzleViewAction.DeleteLetter(index)) }
+                                .border(
+                                    width = 1.dp,
+                                    color = if (viewState.wordNotCorrect) Red else darkColors.backPrimary,
+                                    shape = RoundedCornerShape(7.dp)
+                                ),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -114,8 +119,8 @@ fun PuzzleScreen(
                                 style = Typography.titleLarge.copy(
                                     fontSize = Typography.titleLarge.fontSize * multiplier
                                 ),
-                                onTextLayout = {
-                                    if (it.hasVisualOverflow) multiplier *= 0.95f
+                                onTextLayout = { text ->
+                                    if (text.hasVisualOverflow) multiplier *= 0.95f
                                 }
                             )
                         }
