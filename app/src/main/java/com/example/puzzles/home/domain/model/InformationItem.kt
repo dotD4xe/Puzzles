@@ -1,4 +1,4 @@
-package com.example.puzzles.featureHome.domain.model
+package com.example.puzzles.home.domain.model
 
 data class InformationItem(
     val complexity: Complexity,

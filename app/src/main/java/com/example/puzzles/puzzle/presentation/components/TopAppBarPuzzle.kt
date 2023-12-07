@@ -1,4 +1,4 @@
-package com.example.puzzles.featurePuzzle.presentation.components
+package com.example.puzzles.puzzle.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.example.puzzles.featureHome.presentation.components
+package com.example.puzzles.home.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -27,8 +27,8 @@ import com.example.puzzles.core.theme.Orange
 import com.example.puzzles.core.theme.Red
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
-import com.example.puzzles.featureHome.domain.model.Complexity
-import com.example.puzzles.featureHome.domain.model.InformationItem
+import com.example.puzzles.home.domain.model.Complexity
+import com.example.puzzles.home.domain.model.InformationItem
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

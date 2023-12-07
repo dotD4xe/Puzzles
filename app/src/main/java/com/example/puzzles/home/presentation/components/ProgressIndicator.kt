@@ -1,4 +1,4 @@
-package com.example.puzzles.featureHome.presentation.components
+package com.example.puzzles.home.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

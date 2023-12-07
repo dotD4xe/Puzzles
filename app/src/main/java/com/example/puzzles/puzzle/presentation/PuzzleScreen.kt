@@ -1,4 +1,4 @@
-package com.example.puzzles.featurePuzzle.presentation
+package com.example.puzzles.puzzle.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,30 +35,26 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
-import com.example.puzzles.featurePuzzle.presentation.components.LetterButton
-import com.example.puzzles.featurePuzzle.presentation.components.TopAppBarPuzzle
-
-const val SECRET_WORD = "defa"
+import com.example.puzzles.puzzle.presentation.components.LetterButton
+import com.example.puzzles.puzzle.presentation.components.TopAppBarPuzzle
+import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewAction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun PuzzleScreen() {
-
-    val screenWidth = LocalConfiguration.current.screenWidthDp
-    val keyWord = (screenWidth/3).dp
-
+fun PuzzleScreen(
+    viewModel: PuzzleViewModel = viewModel(),
+//    viewState: PuzzleViewState,
+//    viewAction: (PuzzleViewAction) -> Unit,
+) {
     var multiplier by remember { mutableStateOf(1f) }
-    var multiplier2 by remember { mutableStateOf(1f) }
+    val screenWordWidth = (LocalConfiguration.current.screenWidthDp/3).dp
 
-    val letterList = remember {
-        mutableStateListOf<String>().apply {
-            addAll(List(SECRET_WORD.length) { "" })
-        }
-    }
-    val listWord = remember { mutableStateListOf("A", "B", "C", "D", "E", "F", "G", "A", "B", "C", "D", "E", "F") }
+    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     Scaffold(
         containerColor = darkColors.backPrimary,
@@ -83,7 +78,7 @@ fun PuzzleScreen() {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "В синем небе светляки — Не дотянешь к ним руки. А один большой светляк Изогнулся, как червяк.",
+                        text = viewState.puzzle,
                         modifier = Modifier
                             .padding(16.dp)
                     )
@@ -102,24 +97,18 @@ fun PuzzleScreen() {
                         .fillMaxWidth()
 
                 ) {
-                    val commonModifier = Modifier
-                        .background(darkColors.backSecondary, RoundedCornerShape(7.dp))
-
-                    val modifier = if (SECRET_WORD.length > 6) commonModifier.weight(1f).aspectRatio(1.0f)
+                    val commonModifier = Modifier.background(darkColors.backSecondary, RoundedCornerShape(7.dp))
+                    val modifier = if (viewState.secretWord.length > 6) commonModifier.weight(1f).aspectRatio(1.0f)
                     else commonModifier.width(45.dp).aspectRatio(1.0f)
 
-                    repeat(SECRET_WORD.length ) { index ->
+                    repeat(viewState.secretWord.length ) { index ->
                         Box(
                             modifier = modifier
-                                .clickable {
-                                    val indexOfEmptyPlace = listWord.indexOf("")
-                                    if (indexOfEmptyPlace != -1) listWord[indexOfEmptyPlace] = letterList[index]
-                                    letterList[index] = ""
-                                },
+                                .clickable { viewModel.onAction(PuzzleViewAction.DeleteLetter(index)) },
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = letterList.getOrNull(index) ?: "",
+                                text = viewState.word.getOrNull(index) ?: "",
                                 color = Color.White,
                                 overflow = TextOverflow.Visible,
                                 style = Typography.titleLarge.copy(
@@ -141,7 +130,7 @@ fun PuzzleScreen() {
                     columns = GridCells.Fixed(6),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .size(keyWord),
+                        .size(screenWordWidth),
                     verticalArrangement = Arrangement.spacedBy(5.dp),
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
                     userScrollEnabled = false
@@ -152,15 +141,8 @@ fun PuzzleScreen() {
                                 .background(darkColors.backTertiary, RoundedCornerShape(7.dp))
                                 .fillMaxWidth()
                                 .aspectRatio(1.0f)
-                                .clickable {
-                                    val changeItemIndex = letterList.indexOf("")
-                                    if (changeItemIndex != -1) {
-                                        letterList[changeItemIndex] = (listWord[index])
-                                        listWord[index] = ""
-                                    }
-                                },
-                            index = index,
-                            list = listWord
+                                .clickable { viewModel.onAction(PuzzleViewAction.AddLetter(index)) },
+                            letter = viewState.letters[index]
                         )
                     }
                 }

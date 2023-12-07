@@ -1,4 +1,4 @@
-package com.example.puzzles.featureHome.presentation
+package com.example.puzzles.home.presentation
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.dp
 import com.example.puzzles.R
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
-import com.example.puzzles.featureHome.domain.model.Complexity
-import com.example.puzzles.featureHome.domain.model.InformationItem
-import com.example.puzzles.featureHome.presentation.components.TopAppBarHome
-import com.example.puzzles.featureHome.presentation.components.ItemComplexityOfPuzzles
-import com.example.puzzles.featureHome.presentation.components.ProgressIndicator
+import com.example.puzzles.home.domain.model.Complexity
+import com.example.puzzles.home.domain.model.InformationItem
+import com.example.puzzles.home.presentation.components.TopAppBarHome
+import com.example.puzzles.home.presentation.components.ItemComplexityOfPuzzles
+import com.example.puzzles.home.presentation.components.ProgressIndicator
 
 val item = InformationItem(Complexity.EASY, 22, 4)
 val item1 = InformationItem(Complexity.MEDIUM, 100, 40)
