@@ -25,7 +25,7 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.roboto_medium)),
         fontWeight = FontWeight.Medium,
-        fontSize = 40.sp,
+        fontSize = 20.sp,
         lineHeight = 28.sp,
     ),
     labelLarge = TextStyle(
@@ -33,6 +33,12 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+    displayLarge = TextStyle(
+        fontFamily = FontFamily(Font(R.font.roboto_medium)),
+        fontWeight = FontWeight.Medium,
+        fontSize = 40.sp,
+        lineHeight = 28.sp,
+    ),
 )
 

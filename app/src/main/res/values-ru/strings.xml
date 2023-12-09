@@ -9,4 +9,8 @@
     <string name="done">Выполнено</string>
     <string name="completed_percent">%d%% Выполнено</string>
     <string name="puzzle">Загадка</string>
+    <string name="mission_complete">Уровень пройден!</string>
+    <string name="new_mystery">Новая загадка</string>
+    <string name="home">Главная</string>
+
 </resources>

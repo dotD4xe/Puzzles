@@ -10,3 +10,5 @@ val Blue = Color(0xFF0066FF)
 val BackPrimary = Color(0xFF1C1D22)
 val BackSecondary = Color(0xFF252833)
 val BackTertiary = Color(0xFF2F3749)
+
+val PuzzleLabel = Color(0xFF31C2B6)

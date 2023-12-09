@@ -23,12 +23,14 @@ data class ColorScheme(
     val backPrimary: Color = Color.Unspecified,
     val backSecondary: Color = Color.Unspecified,
     val backTertiary: Color = Color.Unspecified,
+    val puzzleLabel: Color = Color.Unspecified
 )
 
 val darkColors = ColorScheme(
     backPrimary = BackPrimary,
     backSecondary = BackSecondary,
-    backTertiary = BackTertiary
+    backTertiary = BackTertiary,
+    puzzleLabel = PuzzleLabel
 )
 
 val LocalExtendedColors = compositionLocalOf {

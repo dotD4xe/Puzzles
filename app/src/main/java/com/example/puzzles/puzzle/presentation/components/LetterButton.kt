@@ -28,8 +28,8 @@ fun LetterButton(modifier: Modifier, letter: String) {
             text = letter,
             color = Color.White,
             overflow = TextOverflow.Visible,
-            style = Typography.titleLarge.copy(
-                fontSize = Typography.titleLarge.fontSize * multiplier
+            style = Typography.displayLarge.copy(
+                fontSize = Typography.displayLarge.fontSize * multiplier
             ),
             onTextLayout = {
                 if (it.hasVisualOverflow) {

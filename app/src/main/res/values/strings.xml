@@ -9,5 +9,7 @@
     <string name="done">Done</string>
     <string name="completed_percent">%d%% completed</string>
     <string name="puzzle">Puzzle</string>
-
+    <string name="mission_complete">The level is passed!</string>
+    <string name="new_mystery">New mystery</string>
+    <string name="home">Home</string>
 </resources>
