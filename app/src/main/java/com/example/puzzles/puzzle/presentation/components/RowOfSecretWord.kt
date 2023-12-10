@@ -46,7 +46,7 @@ fun RowOfSecretWord(
                 alignment = Alignment.CenterHorizontally
             ),
     ) {
-        val commonModifier = Modifier.background(darkColors.backSecondary, RoundedCornerShape(7.dp))
+        val commonModifier = Modifier.background(darkColors.backTertiary, RoundedCornerShape(7.dp))
         val modifier = if (secretWord.length > DISPLAYED_COLUMN_LIMIT) commonModifier
             .weight(1f)
             .aspectRatio(1.0f)

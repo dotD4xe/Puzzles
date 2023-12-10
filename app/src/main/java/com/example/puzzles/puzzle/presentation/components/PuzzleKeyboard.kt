@@ -37,7 +37,7 @@ fun PuzzleKeyboard(
         items(ITEMS_LETTER_LIMIT) { index ->
             LetterButton(
                 modifier = Modifier
-                    .background(darkColors.backTertiary, RoundedCornerShape(7.dp))
+                    .background(darkColors.backSecondary, RoundedCornerShape(7.dp))
                     .fillMaxWidth()
                     .aspectRatio(1.0f)
                     .clickable { onEvent(PuzzleViewAction.AddLetter(index)) },

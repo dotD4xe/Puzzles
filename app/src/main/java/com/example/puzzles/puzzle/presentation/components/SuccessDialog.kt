@@ -23,10 +23,12 @@ import com.example.puzzles.R
 import com.example.puzzles.core.theme.Blue
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
+import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewAction
 
 @Composable
 fun SuccessDialog(
-    wordCorrect: Boolean
+    wordCorrect: Boolean,
+    onAction: (PuzzleViewAction) -> Unit,
 ) {
     if (wordCorrect) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.success))
@@ -48,7 +50,7 @@ fun SuccessDialog(
             onDismissRequest = {},
             confirmButton = {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { onAction(PuzzleViewAction.ToHome) },
                     shape = RoundedCornerShape(7.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Blue,
@@ -57,17 +59,6 @@ fun SuccessDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp)
-                ) {
-                    Text(text = stringResource(id = R.string.new_mystery))
-                }
-                Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(7.dp),
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = Color.White
-                    ),
                 ) {
                     Text(text = stringResource(id = R.string.home))
                 }

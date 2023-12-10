@@ -1,8 +1,6 @@
 package com.example.puzzles.home.presentation.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.puzzles.R
+import com.example.puzzles.core.theme.Blue
 import com.example.puzzles.core.theme.Green
 import com.example.puzzles.core.theme.Orange
 import com.example.puzzles.core.theme.Red
@@ -29,19 +30,17 @@ import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
 import com.example.puzzles.home.domain.model.Complexity
 import com.example.puzzles.home.domain.model.InformationItem
+import com.example.puzzles.home.presentation.TEXT_ALPHA
+import com.example.puzzles.home.presentation.stateHolder.HomeViewAction
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemComplexityOfPuzzles(
-    info: InformationItem
+    info: InformationItem,
+    onAction: (HomeViewAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .combinedClickable(
-                onClick = {  },
-                onLongClick = { }
-            )
             .background(
                 color = darkColors.backSecondary,
                 shape = RoundedCornerShape(10.dp)
@@ -76,7 +75,7 @@ fun ItemComplexityOfPuzzles(
                     color = Color.White,
                     style = Typography.bodySmall,
                     modifier = Modifier
-                        .alpha(0.5f)
+                        .alpha(TEXT_ALPHA)
                         .padding(bottom = 7.dp)
                 )
                 Text(
@@ -93,38 +92,70 @@ fun ItemComplexityOfPuzzles(
                     style = Typography.labelLarge,
                 )
             }
+            InfoInCounting(stringResource(id = R.string.quantity), info.quantity)
 
-            Column {
+            InfoInCounting(stringResource(id = R.string.done), info.done)
+        }
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Text(
+                text = "${info.level}",
+                color = Color.White,
+                style = Typography.titleLarge,
+                modifier = Modifier
+                    .padding(end = 5.dp)
+                    .align(Alignment.Bottom)
+            )
+
+            Text(
+                text = stringResource(id = R.string.level),
+                color = Color.White,
+                style = Typography.bodySmall,
+                modifier = Modifier
+                    .alpha(TEXT_ALPHA)
+                    .align(Alignment.Bottom)
+            )
+
+            Button(
+                onClick = { onAction(HomeViewAction.NavigateToPuzzle)},
+                shape = RoundedCornerShape(7.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 32.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Blue,
+                    contentColor = Color.White
+                ),
+            ) {
                 Text(
-                    text = stringResource(id = R.string.quantity),
-                    color = Color.White,
-                    style = Typography.bodySmall,
-                    modifier = Modifier
-                        .alpha(0.5f)
-                        .padding(bottom = 7.dp)
-                )
-                Text(
-                    text = info.quantity.toString(),
-                    color = Color.White,
-                    style = Typography.labelLarge,
-                )
-            }
-            Column {
-                Text(
-                    text = stringResource(id = R.string.done),
-                    color = Color.White,
-                    style = Typography.bodySmall,
-                    modifier = Modifier
-                        .alpha(0.5f)
-                        .padding(bottom = 7.dp)
-                )
-                Text(
-                    text = info.done.toString(),
-                    color = Color.White,
-                    style = Typography.labelLarge,
+                    text = stringResource(id = R.string.continue_next),
                 )
             }
         }
+    }
+}
+
+@Composable
+fun InfoInCounting(text: String, count: Int) {
+    Column {
+        Text(
+            text = text,
+            color = Color.White,
+            style = Typography.bodySmall,
+            modifier = Modifier
+                .alpha(TEXT_ALPHA)
+                .padding(bottom = 7.dp)
+        )
+        Text(
+            text = count.toString(),
+            color = Color.White,
+            style = Typography.labelLarge,
+        )
     }
 }
 

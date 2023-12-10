@@ -9,32 +9,41 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.puzzles.R
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
-import com.example.puzzles.home.domain.model.Complexity
-import com.example.puzzles.home.domain.model.InformationItem
-import com.example.puzzles.home.presentation.components.TopAppBarHome
+import com.example.puzzles.home.presentation.components.HomeViewEventHandler
 import com.example.puzzles.home.presentation.components.ItemComplexityOfPuzzles
 import com.example.puzzles.home.presentation.components.ProgressIndicator
+import com.example.puzzles.home.presentation.stateHolder.HomeViewAction
+import com.example.puzzles.home.presentation.stateHolder.HomeViewEvent
+import com.example.puzzles.home.presentation.stateHolder.HomeViewState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
-val item = InformationItem(Complexity.EASY, 22, 4)
-val item1 = InformationItem(Complexity.MEDIUM, 100, 40)
-val item2 = InformationItem(Complexity.HARD, 30, 2)
-val informations = listOf(item, item1, item2)
+const val TEXT_ALPHA = 0.5f
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewState: StateFlow<HomeViewState>,
+    viewEvent: Flow<HomeViewEvent>,
+    onAction: (HomeViewAction) -> Unit,
+    onPuzzle: () -> Unit,
+) {
+
+    val viewStateUi by viewState.collectAsStateWithLifecycle()
+
+    HomeViewEventHandler(viewEvent, onPuzzle)
+
     Scaffold(
         containerColor = darkColors.backPrimary,
-        topBar = { TopAppBarHome("Daniel") },
     ) {
         LazyColumn (
             modifier = Modifier
@@ -42,19 +51,24 @@ fun HomeScreen() {
                 .padding(horizontal = 16.dp)
         ) {
 
-            item { ProgressIndicator() }
-
             item {
                 Text(
                     text = stringResource(id = R.string.home_description),
                     color = Color.White,
+                    style = Typography.bodyMedium,
                     modifier = Modifier
-                        .padding(bottom = 32.dp, top = 32.dp),
-                    style = Typography.bodyMedium
+                        .padding(top = 32.dp),
                 )
             }
-            items(items = informations) { information ->
-                ItemComplexityOfPuzzles(information)
+
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
+                ProgressIndicator(viewStateUi.completed)
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+
+            items(items = viewStateUi.puzzlesInformation) { information ->
+                ItemComplexityOfPuzzles(information, onAction)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }

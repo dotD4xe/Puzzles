@@ -1,46 +1,57 @@
 package com.example.puzzles.home.presentation.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.puzzles.R
-import com.example.puzzles.core.theme.Blue
+import com.example.puzzles.core.theme.Green
 import com.example.puzzles.core.theme.Typography
 import com.example.puzzles.core.theme.darkColors
+import com.example.puzzles.home.presentation.TEXT_ALPHA
 
-@Preview
 @Composable
-fun ProgressIndicator() {
+fun ProgressIndicator(completed: Int) {
     Column {
+        Row(modifier = Modifier.padding(bottom = 8.dp)) {
+            Text(
+                text = stringResource(id = R.string.completed_percent, completed),
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                style = Typography.titleLarge,
+                modifier = Modifier.padding(end = 5.dp)
+            )
+
+            Text(
+                text = stringResource(id = R.string.completed),
+                color = Color.White,
+                style = Typography.bodySmall,
+                modifier = Modifier
+                    .alpha(TEXT_ALPHA)
+                    .align(Alignment.Bottom)
+            )
+        }
         LinearProgressIndicator(
-            progress = 0.76f,
+            progress = completed.toFloat()/100,
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(4.dp)),
-            color = Blue,
+                .clip(RoundedCornerShape(10.dp))
+                .height(8.dp),
+            color = Green,
             trackColor = darkColors.backTertiary
-        )
-        Text(
-            text = stringResource(id = R.string.completed_percent, 76),
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            style = Typography.bodySmall,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp)
-                .alpha(0.5f)
         )
     }
 

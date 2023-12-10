@@ -1,16 +1,24 @@
 package com.example.puzzles.puzzle.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewAction
+import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewEvent
 import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewState
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class PuzzleViewModel: ViewModel() {
 
     private val _viewState = MutableStateFlow(PuzzleViewState())
     val viewState = _viewState.asStateFlow()
+
+    private val _viewEvent = Channel<PuzzleViewEvent>()
+    val viewEvent = _viewEvent.receiveAsFlow()
 
     init {
         val secretWord = "BOB"
@@ -33,6 +41,7 @@ class PuzzleViewModel: ViewModel() {
         when(action) {
             is PuzzleViewAction.AddLetter -> addLetter(action.indexLetter)
             is PuzzleViewAction.DeleteLetter -> deleteLetter(action.indexLetter)
+            is PuzzleViewAction.ToHome -> viewModelScope.launch { _viewEvent.send(PuzzleViewEvent.ToHome) }
         }
     }
 

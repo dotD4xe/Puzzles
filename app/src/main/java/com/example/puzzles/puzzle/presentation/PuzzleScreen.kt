@@ -9,32 +9,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.puzzles.core.theme.darkColors
 import com.example.puzzles.puzzle.presentation.components.PuzzleDescription
 import com.example.puzzles.puzzle.presentation.components.PuzzleKeyboard
+import com.example.puzzles.puzzle.presentation.components.PuzzleViewEventHandler
 import com.example.puzzles.puzzle.presentation.components.RowOfSecretWord
 import com.example.puzzles.puzzle.presentation.components.SuccessDialog
 import com.example.puzzles.puzzle.presentation.components.TopAppBarPuzzle
+import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewAction
+import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewEvent
+import com.example.puzzles.puzzle.presentation.stateHolder.PuzzleViewState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 const val DISPLAYED_COLUMN_LIMIT = 6
 const val ITEMS_LETTER_LIMIT = 12
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun PuzzleScreen(
-    viewModel: PuzzleViewModel = viewModel(),
+    viewState: StateFlow<PuzzleViewState>,
+    viewEvent: Flow<PuzzleViewEvent>,
+    onAction: (PuzzleViewAction) -> Unit,
+    onCompletedLevel: () -> Unit,
 ) {
-    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+    val viewStateUi by viewState.collectAsStateWithLifecycle()
 
-    SuccessDialog(viewState.wordCorrect)
+    PuzzleViewEventHandler(viewEvent, onCompletedLevel)
+
+    SuccessDialog(viewStateUi.wordCorrect, onAction)
 
     Scaffold(
         containerColor = darkColors.backPrimary,
-        topBar = { TopAppBarPuzzle() },
+        topBar = { TopAppBarPuzzle(onAction) },
     ) {
         LazyColumn (
             modifier = Modifier
@@ -44,22 +52,22 @@ fun PuzzleScreen(
         ) {
 
             item {
-                PuzzleDescription(description = viewState.puzzle)
+                PuzzleDescription(description = viewStateUi.puzzle)
             }
 
             item {
                 RowOfSecretWord(
-                    secretWord = viewState.secretWord,
-                    word = viewState.word,
-                    wordNotCorrect = viewState.wordNotCorrect,
-                    onEvent = viewModel::onAction
+                    secretWord = viewStateUi.secretWord,
+                    word = viewStateUi.word,
+                    wordNotCorrect = viewStateUi.wordNotCorrect,
+                    onEvent = onAction
                 )
             }
 
             item {
                 PuzzleKeyboard(
-                    letters = viewState.letters,
-                    onEvent = viewModel::onAction
+                    letters = viewStateUi.letters,
+                    onEvent = onAction
                 )
             }
         }
